@@ -41,7 +41,7 @@
     "prettier": "^3.0.1",
     "rollup": "4.9.5",
     "should": "13.2.3",
-    "sinon": "17.0.1"
+    "sinon": "18.0.0"
   },
   "dependencies": {
     "@lexical/clipboard": "0.13.1",
