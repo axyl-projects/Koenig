@@ -34,7 +34,7 @@
     "c8": "9.1.0",
     "mocha": "10.4.0",
     "rollup": "4.9.5",
-    "sinon": "17.0.1"
+    "sinon": "18.0.0"
   },
   "dependencies": {
     "lodash": "^4.17.21"
