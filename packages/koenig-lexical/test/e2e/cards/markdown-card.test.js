@@ -109,32 +109,51 @@ test.describe('Markdown card', async () => {
         `, {ignoreCardContents: true});
     });
 
-    test('should open unsplash dialog on Cmd-Alt-O', async function () {
+    test('should open unsplash dialog on Cmd-Alt-O', async function ({browserName}) {
         await focusEditor(page);
         await page.keyboard.type('/');
         await page.click('[data-kg-card-menu-item="Markdown"]');
         await page.click('[data-kg-card="markdown"]');
 
-        await page.keyboard.press(`Control+Alt+O`);
+        if (browserName === 'chromium' || browserName === 'firefox') {
+            await page.keyboard.press(`Control+Alt+O`);
+        }
+
+        if (browserName === 'webkit') {
+            await page.keyboard.press(`Meta+Alt+O`);
+        }
         await page.waitForSelector('[data-kg-modal="unsplash"]');
     });
 
-    test('should toggle spellcheck on Cmd-Alt-S', async function () {
+    test('should toggle spellcheck on Cmd-Alt-S', async function ({browserName}) {
         await focusEditor(page);
         await insertCard(page, {cardName: 'markdown'});
 
         await expect(page.locator('[title*="Spellcheck"]')).not.toBeNull();
-        await page.keyboard.press(`Control+Alt+S`);
+        if (browserName === 'chromium' || browserName === 'firefox') {
+            await page.keyboard.press(`Control+Alt+S`);
+        }
+
+        if (browserName === 'webkit') {
+            await page.keyboard.press(`Meta+Alt+S`);
+        }
+
         await expect(page.locator('[title*="Spellcheck"][class*="active"]')).toHaveCount(1);
     });
 
-    test('should open image upload dialog on Cmd-Alt-I', async function () {
+    test('should open image upload dialog on Cmd-Alt-I', async function ({browserName}) {
         const fileChooserPromise = page.waitForEvent('filechooser');
         await focusEditor(page);
         await page.keyboard.type('/');
         await page.click('[data-kg-card-menu-item="Markdown"]');
         await page.click('[data-kg-card="markdown"]');
-        await page.keyboard.press(`Control+Alt+I`);
+        if (browserName === 'chromium' || browserName === 'firefox') {
+            await page.keyboard.press(`Control+Alt+I`);
+        }
+
+        if (browserName === 'webkit') {
+            await page.keyboard.press(`Meta+Alt+I`);
+        }
         await fileChooserPromise;
     });
 
@@ -188,7 +207,7 @@ test.describe('Markdown card', async () => {
         `, {ignoreCardContents: true});
     });
 
-    test('can upload an image', async function () {
+    test('can upload an image', async function ({browserName}) {
         const filePath = path.relative(process.cwd(), __dirname + '/../fixtures/large-image.png');
         await focusEditor(page);
         const fileChooserPromise = page.waitForEvent('filechooser');
@@ -196,7 +215,14 @@ test.describe('Markdown card', async () => {
         await page.keyboard.type('/');
         await page.click('[data-kg-card-menu-item="Markdown"]');
         await page.waitForSelector('[data-kg-card="markdown"] .editor-toolbar');
-        await page.keyboard.press(`Control+Alt+I`);
+
+        if (browserName === 'chromium' || browserName === 'firefox') {
+            await page.keyboard.press(`Control+Alt+I`);
+        }
+
+        if (browserName === 'webkit') {
+            await page.keyboard.press(`Meta+Alt+I`);
+        }
 
         const fileChooser = await fileChooserPromise;
         await fileChooser.setFiles(filePath);
