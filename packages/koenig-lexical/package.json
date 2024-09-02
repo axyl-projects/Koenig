@@ -73,7 +73,7 @@
     "@storybook/test-runner": "^0.19.0",
     "@testing-library/dom": "10.4.0",
     "@testing-library/jest-dom": "6.5.0",
-    "@testing-library/react": "16.0.0",
+    "@testing-library/react": "16.0.1",
     "@tryghost/color-utils": "0.2.2",
     "@tryghost/helpers": "1.1.90",
     "@tryghost/kg-clean-basic-html": "4.1.4",
